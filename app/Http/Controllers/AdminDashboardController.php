@@ -22,6 +22,14 @@ class AdminDashboardController extends Controller
      * @return Response
      */
     public function dashboard(){
-        return Inertia::render('admin/dashboard');
+        $sales = [
+            ['month' => 'January', 'total' => 1200],
+            ['month' => 'February', 'total' => 1500],
+            ['month' => 'March', 'total' => 900],
+            ['month' => 'April', 'total' => 1700],
+        ];
+        return Inertia::render('admin/dashboard', [
+            'salesData' => $sales
+        ]);
     }
 }

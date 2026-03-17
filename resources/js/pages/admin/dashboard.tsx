@@ -3,7 +3,7 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
-import { Line } from 'react-chartjs-2';
+import { Line, Doughnut, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,11 +12,12 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ArcElement
 } from 'chart.js';
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,66 +26,83 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const options = {
-  chart: {
-    type: 'line',
-    height: 350
-  },
-  series: [{
-    name: 'Sales',
-    data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-  }],
-  xaxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-  }
+export const data = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [
+    {
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
+    },
+  ],
 };
 
-export default function Dashboard( { salesData } ) {
-      // Prepare chart data
-  const labels = salesData.map(item => item.month);
-  const totals = salesData.map(item => item.total);
-
-  
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Monthly Sales',
-        data: totals,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        tension: 0.3
-      }
-    ]
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: { position: 'top' },
-      title: { display: true, text: 'Sales Overview' }
-    }
-  };
+export default function Dashboard(  ) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div className="grid auto-rows-min gap-4 md:grid-cols-4">
 
 
                     <div className="max-w-sm p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-brand-softer text-fg-brand-strong">
+                        <h5 className="text-xl font-bold tracking-tight text-gray-900">Surveys</h5>
                         <div className="flex items-center justify-between mb-4">
-                            <h5 className="text-xl font-bold tracking-tight text-gray-900">Surveys</h5>
                             <span className="relative flex h-3 w-3">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                             </span>
-                            <Line data={data} options={options} />
+                            <Doughnut data={data} />
                         </div>
-                        <p className="text-5xl font-extrabold text-gray-900">12</p>
-                        <p className="text-sm text-green-600 font-medium mt-1">Active Surveys</p>
                     </div>
+                    <div className="max-w-sm p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-brand-softer text-fg-brand-strong">
+                        <h5 className="text-xl font-bold tracking-tight text-gray-900">Surveys</h5>
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="relative flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <Pie data={data} />
+                        </div>
+                    </div>
+                    <div className="max-w-sm p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-brand-softer text-fg-brand-strong">
+                        <h5 className="text-xl font-bold tracking-tight text-gray-900">Surveys</h5>
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="relative flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <Doughnut data={data} />
+                        </div>
+                    </div>
+                    <div className="max-w-sm p-6 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-brand-softer text-fg-brand-strong">
+                        <h5 className="text-xl font-bold tracking-tight text-gray-900">Surveys</h5>
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="relative flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <Pie data={data} />
+                        </div>
+                    </div>
+                    
 
 
 
