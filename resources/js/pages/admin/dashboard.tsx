@@ -3,6 +3,20 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,7 +39,33 @@ const options = {
   }
 };
 
-export default function Dashboard() {
+export default function Dashboard( { salesData } ) {
+      // Prepare chart data
+  const labels = salesData.map(item => item.month);
+  const totals = salesData.map(item => item.total);
+
+  
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Monthly Sales',
+        data: totals,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        tension: 0.3
+      }
+    ]
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' },
+      title: { display: true, text: 'Sales Overview' }
+    }
+  };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -40,7 +80,7 @@ export default function Dashboard() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                             </span>
-                            
+                            <Line data={data} options={options} />
                         </div>
                         <p className="text-5xl font-extrabold text-gray-900">12</p>
                         <p className="text-sm text-green-600 font-medium mt-1">Active Surveys</p>

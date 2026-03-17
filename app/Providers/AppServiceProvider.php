@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
+use App\Interfaces\Services\ChartServiceInterface;
+use App\Services\ChartService;
+
+use App\Interfaces\Services\SurveyManagementServiceInterface;
+use App\Services\SurveyManagementService;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -15,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(SurveyManagementServiceInterface::class, SurveyManagementService::class);
+        $this->app->bind(ChartServiceInterface::class, ChartService::class);
+
     }
 
     /**
@@ -26,9 +34,6 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
     }
 
-    /**
-     * Configure default behaviors for production-ready applications.
-     */
     protected function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);
@@ -44,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null,
+            : null
         );
     }
 }
