@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\JobVacancies;
 use App\Repositories\BaseRepository;
 
-class JobVacanciesRepository extends BaseRepository {
+class SurveyManagementRepository extends BaseRepository {
 
     protected $model;
 

@@ -7,7 +7,7 @@ use App\Services\SurveyManagementService;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
-class JobVacanciesController extends Controller
+class SurveyManagementController extends Controller
 {
     protected $surveyManagementService;
 
@@ -22,7 +22,7 @@ class JobVacanciesController extends Controller
      * @return Response
      */
     public function getList(){
-        return Inertia::render('surveymanagement/listsurveys');
+        return Inertia::render('admin/surveylist');
     }
 
     /**
@@ -31,8 +31,8 @@ class JobVacanciesController extends Controller
      * @param  obj  $request
      * @return Response
      */
-    public function create($id){
-        return Inertia::render('surveymanagement/createsurvey');
+    public function create(){
+        return Inertia::render('admin/createsurvey');
     }
 
     /**
@@ -52,7 +52,7 @@ class JobVacanciesController extends Controller
      * @return Response
      */
     public function getdetails($id){
-        return Inertia::render('surveymanagement/surveydetails');
+        return Inertia::render('admin/surveydetails');
     }
 
     /**
