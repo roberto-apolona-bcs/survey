@@ -1,0 +1,42 @@
+ul.frmb.stage-wrap{
+    border: solid grey 1px;
+}
+
+li.form-field{
+    border: dashed lightgray 1px;
+}
+
+button.btn{
+    cursor: pointer;
+}
+
+button.btn-sm{
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+button.btn-default{
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+button.btn-primary{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+button.btn-success{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+button.btn-danger{
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+

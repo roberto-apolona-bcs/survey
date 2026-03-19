@@ -20,11 +20,9 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <StrictMode>
                 <BrowserRouter>
                     <App {...props} />
-                </BrowserRouter>
-            </StrictMode>,
+                </BrowserRouter>,
         );
     },
     progress: {

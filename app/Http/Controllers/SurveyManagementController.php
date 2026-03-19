@@ -42,7 +42,7 @@ class SurveyManagementController extends Controller
      * @return Response
      */
     public function store(){
-        return false;
+        return redirect()->route('surveyadd');
     }
 
     /**
